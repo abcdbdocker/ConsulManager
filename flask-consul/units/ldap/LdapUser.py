@@ -69,7 +69,7 @@ class Ldap(object):
     #创建用户
     def create_user(self):
         objectclass = ['top', 'inetOrgPerson', 'posixAccount']
-        c = self.conn.add('uid=user1,ou=People,dc=lishicloud,dc=com',objectclass,
+        c = self.conn.add('uid=user1,ou=People,dc=xxx,dc=com',objectclass,
                                {'cn': "user1", 'sn': 'user1',"employeeType":"developer",
                                 'gidNumber': 501, 'homeDirectory': '/home/users/{0}', 'uidNumber': 5000,"givenName":"user1",
                                 "loginShell":"/bin/bash",'displayName': "测试用户",'userPassword': "111111", 'mail': 'user1@qq.com'}),
@@ -78,7 +78,7 @@ class Ldap(object):
 
     #删除用户
     def delete_user(self):
-        c = self.conn.delete('cn=wanglin,ou=People,dc=lishicloud,dc=com')
+        c = self.conn.delete('cn=xxx,ou=People,dc=xxx,dc=com')
         print(c)
 
     # def __del__(self):
