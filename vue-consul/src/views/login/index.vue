@@ -42,6 +42,8 @@
         </span>
       </el-form-item>
 
+      <el-checkbox class="ldap" v-model="loginForm.Ldapchecked" label="启动ldap验证" border></el-checkbox>
+
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登 录</el-button>
 
     </el-form>
@@ -57,13 +59,22 @@ import { validUsername } from '@/utils/validate'
 export default {
   name: 'Login',
   data() {
+    // const validateUsername = (rule, value, callback) => {
+    //   if (!validUsername(value)) {
+    //     callback(new Error('Please enter the correct user name'))
+    //   } else {
+    //     callback()
+    //   }
+    // }
+
     const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
+      if (!value) {
         callback(new Error('Please enter the correct user name'))
       } else {
         callback()
       }
     }
+
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
         callback(new Error('The password can not be less than 6 digits'))
@@ -73,8 +84,9 @@ export default {
     }
     return {
       loginForm: {
-        username: 'admin',
-        password: ''
+        username: '',
+        password: '',
+        Ldapchecked:false, //ldap验证开关
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -104,6 +116,7 @@ export default {
         this.$refs.password.focus()
       })
     },
+
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
@@ -176,6 +189,10 @@ $bg:#2d3a4b;
 $dark_gray:#889aa4;
 $light_gray:#eee;
 
+
+.ldap{
+  margin-bottom: 10px;
+}
 .login-container {
   // min-height: 100%;
   // width: 100%;

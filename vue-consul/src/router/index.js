@@ -268,6 +268,17 @@ export const constantRoutes = [
 
     ]
   },
+  {
+    path: '/settings',
+    component: Layout,
+    children: [{
+      path: 'index',
+      name: '全局配置',
+      component: () => import('@/views/ldap/index'),
+      meta: { title: '全局配置', icon: 'el-icon-chat-line-square' }
+    }]
+  },
+
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }

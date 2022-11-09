@@ -104,6 +104,7 @@
 
 <script>
 import { getJmsList, getJmsConfig, postJmsConfig, postJmsSwitch, postJmsSync } from '@/api/jms'
+
 export default {
   data() {
     return {

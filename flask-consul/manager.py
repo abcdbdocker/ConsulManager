@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 from flask import Flask
+from flask_cors import CORS
+
 from units import consul_kv
 import uuid
 
@@ -7,14 +9,14 @@ skey_path = 'ConsulManager/assets/secret/skey'
 if consul_kv.get_kv_dict(skey_path) == {}:
     consul_kv.put_kv(skey_path,{'sk':''.join(str(uuid.uuid4()).split('-'))})
 
-from views import login, blackbox, consul, jobs, nodes, selfnode, avd, exp, jms, edit_cloud
+from views import login, blackbox, consul, jobs, nodes, selfnode, avd, exp, jms, edit_cloud, ldap
 from units.cloud import huaweicloud,alicloud,tencent_cloud
 from units.avd import avd_list
 from units.jms import sync_jms
 
 app = Flask(__name__)
 #非nginx调试，解决跨域CORS问题
-#CORS(app, supports_credentials=True)
+CORS(app, supports_credentials=True)
 
 app.register_blueprint(login.blueprint)
 app.register_blueprint(blackbox.blueprint)
@@ -26,6 +28,7 @@ app.register_blueprint(avd.blueprint)
 app.register_blueprint(exp.blueprint)
 app.register_blueprint(jms.blueprint)
 app.register_blueprint(edit_cloud.blueprint)
+app.register_blueprint(ldap.blueprint)
 
 class Config(object):
     JOBS = []
